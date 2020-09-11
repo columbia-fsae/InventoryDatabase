@@ -1,7 +1,7 @@
 # InventoryDatabase
 Inventory database implemented with FireBase.
 
-<h2>Funcionalities:</h2>
+<h2>Functionalities:</h2>
 <ul>
   <li>Authentication using email and password: Login/Logout</li>
   <li>Admin property: Make Admin, Create Inputs, </li>
