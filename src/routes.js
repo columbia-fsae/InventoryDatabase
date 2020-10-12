@@ -25,6 +25,7 @@ import HomeView from "views/HomeView.js";
 import MakeOrder from "./views/MakeOrder.js";
 import LoanProfile from "./views/LoanProfile";
 import EmptyView from "./views/EmptyView";
+import Login from "./views/Login";
 
 var routes = [
   {
@@ -95,6 +96,13 @@ var routes = [
     name: "Settings",
     icon: "tim-icons icon-settings-gear-63",
     component: EmptyView,
+    layout: "/admin"
+  },
+  {
+    path: "/login",
+    name: "Login",
+    icon: "tim-icons icon-settings-gear-63",
+    component: Login,
     layout: "/admin"
   },
 ];
