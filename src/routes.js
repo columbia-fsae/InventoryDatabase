@@ -26,6 +26,15 @@ import MakeOrder from "./views/MakeOrder.js";
 import LoanProfile from "./views/LoanProfile";
 import EmptyView from "./views/EmptyView";
 
+export const SIGN_UP = '/signup';
+export const SIGN_IN = '/signin';
+export const LANDING = '/';
+export const HOME = '/home';
+export const ACCOUNT = '/account';
+export const ADMIN = '/admin';
+export const PASSWORD_FORGET = '/pw-forget';
+
+
 var routes = [
   {
     path: "/makeorder",
@@ -41,20 +50,6 @@ var routes = [
     component: TableList,
     layout: "/admin"
   },
-  // {
-  //   path: "/profile",
-  //   name: "Profile",
-  //   icon: "tim-icons icon-single-02",
-  //   component: UserProfile,
-  //   layout: "/admin"
-  // },
-  // {
-  //   path: "/loan",
-  //   name: "Loan Details",
-  //   icon: "tim-icons icon-coins",
-  //   component: LoanProfile,
-  //   layout: "/admin"
-  // },
   {
     path: "/notifications",
     name: "Notifications",
@@ -63,24 +58,10 @@ var routes = [
     layout: "/admin"
   },
   // {
-  //   path: "/analytics",
-  //   name: "Analytics",
-  //   icon: "tim-icons icon-chart-pie-36",
-  //   component: Dashboard,
-  //   layout: "/admin"
-  // },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "tim-icons icon-atom",
-    component: Icons,
-    layout: "/admin"
-  },
-  // {
-  //   path: "/files",
-  //   name: "Files",
-  //   icon: "tim-icons icon-attach-87",
-  //   component: EmptyView,
+  //   path: "/icons",
+  //   name: "Icons",
+  //   icon: "tim-icons icon-atom",
+  //   component: Icons,
   //   layout: "/admin"
   // },
   {
