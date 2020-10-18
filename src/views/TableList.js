@@ -16,7 +16,6 @@
 
 */
 import React from "react";
-
 // reactstrap components
 import {
   Card,
@@ -27,81 +26,34 @@ import {
   Row,
   Col
 } from "reactstrap";
+
 import {NavLink} from "react-router-dom";
+
+import firebase from 'firebase';
+
+import { db } from 'index';
 
 class Tables extends React.Component {
 
   constructor(props){
     super(props);
-    this.getHeader = this.getHeader.bind(this);
-    this.getRowsData = this.getRowsData.bind(this);
-    this.getKeys = this.getKeys.bind(this);
-
     this.state = {
-      transactions:[
-        {
-          "date": "07/21/2020",
-          "orderer": "Jannie Zhong",
-          "department": "ME",
-          "system": "Steering",
-          "partname": "Steering Rack",
-          "catalognum": "B00-F7-001",
-          "approved": "No",
-          "pickup": "No"
-        },
-        {
-          "date": "1/13/2020",
-          "orderer": "Kat Chen",
-          "department": "ME",
-          "system": "Chassis",
-          "partname": "Impact Attenuator Aluminum Honeycomb",
-          "catalognum": "N/A",
-          "approved": "Kat Chen",
-          "pickup": "Denis Profka"
-        },
-        {
-          "date": "12/2/2019",
-          "orderer": "Denis Profka",
-          "department": "ABC",
-          "system": "Shop",
-          "partname": "Swan M314 Isopropyl Alcohol, 99%",
-          "catalognum": "B00NMPLSZ6",
-          "approved": "Denis Profka",
-          "pickup": "Andrew Chuka"
-        }
-
-      ]
-
-    }
-
+      transactions: []
+    };
   }
 
-  getKeys = function(){
-    return Object.keys(this.state.transactions[0]);
-
+  componentDidMount() {
+    db.collection('orders').get().then(querySnapshot => {
+      const data = querySnapshot.docs.map(doc => doc.data());
+      console.log(data);
+      this.setState({ transactions: data});
+    });
   }
-  getRowsData = function(){
-    var items = this.state.transactions;
-    var keys = this.getKeys();
-    return items.map((row, index) => {
-      return <tr key={index}><RenderRow key={index} data={row} keys={keys}/></tr>
-    })
-  }
-  getHeader = function(){
-    var keys = this.getKeys();
-    return keys.map((key, index) => {
-      return <th key={key}>{key.toUpperCase()}</th>
-    })
-  }
-
 
   render() {
-    const transactionList = this.state.transactions;
-    if (!transactionList){
-      console.log("something is wrong!");
-      return null;
-    }
+    const { transactions } = this.state;
     return (
+     
         <div className="content">
           <Row>
             <Col md="12">
@@ -112,11 +64,6 @@ class Tables extends React.Component {
                 <CardBody>
                   <Table className="tablesorter">
                     <thead className="text-primary">
-                    {/*{*/}
-                    {/*  transactionList ? (*/}
-                    {/*        <tr> {this.getHeader()} </tr>*/}
-                    {/*    ) :null*/}
-                    {/*}*/}
                     <tr>
                       <th>
                         Date
@@ -146,9 +93,19 @@ class Tables extends React.Component {
                     </thead>
                     <tbody>
                     {
-                      transactionList ? (
-                          this.getRowsData()
-                      ) : null
+                      transactions.map(order => (
+                        <tr key={order.uid}>
+                          <td>{order.date}</td>
+                          <td>{order.orderer}</td>
+                          <td>{order.department}</td>
+                          <td>{order.partname}</td>
+                          <td>{order.system}</td>
+                          <td>{order.catalognumber}</td>
+                          <td>{order.approved}</td>
+                          <td>{order.pickup}</td>
+                        </tr>
+                       )
+                      )
                     }
                     </tbody>
                   </Table>
@@ -159,30 +116,6 @@ class Tables extends React.Component {
         </div>
     );
   }
-}
-
-const RenderRow = (props) =>{
-  return props.keys.map((key, index)=>{
-
-    if (key == "company_name"){
-      return <td key={props.data[key]}>
-        <NavLink
-            to={{
-              pathname:"/admin/profile",
-              state: {name: props.data[key]}
-            }}
-            className="nav-link"
-            activeClassName="active"
-        >
-          {props.data[key]}
-        </NavLink>
-
-      </td>
-    } else {
-      return <td key={props.data[key]}>{props.data[key]}</td>
-    }
-
-  })
 }
 
 

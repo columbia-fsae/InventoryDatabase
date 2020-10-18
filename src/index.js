@@ -22,6 +22,8 @@ import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 
+import * as firebase from 'firebase';
+
 import AdminLayout from "layouts/Admin/Admin.js";
 // import Navigation from 'components/Navigation/navigation.js';
 import LandingPage from 'components/Landing/landing.js';
@@ -52,6 +54,21 @@ const PASSWORD_FORGET = '/pw-forget';
 
 
 const hist = createBrowserHistory();
+
+const config = {
+  apiKey: "AIzaSyCy7xlvPz6V7NsbiS3shtfdjmK4gg28RRA",
+  authDomain: "formula-sae.firebaseapp.com",
+  databaseURL: "https://formula-sae.firebaseio.com",
+  projectId: "formula-sae",
+  storageBucket: "formula-sae.appspot.com",
+  messagingSenderId: "991999686087",
+};
+
+firebase.initializeApp(config);
+
+var db = firebase.firestore()
+
+export default db
 
 ReactDOM.render(
   <FirebaseContext.Provider value={new Firebase()}>  

@@ -1,3 +1,4 @@
+
 /*!
 
 =========================================================
@@ -16,6 +17,7 @@
 
 */
 import React from "react";
+import firebase from 'firebase';
 
 // reactstrap components
 import {
@@ -34,8 +36,70 @@ import {
 class CreateLoan extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            date: '',
+            orderer: '',
+            department: '',
+            system: '',
+            partname: '',
+            retailer: '',
+            link: '',
+            dimensions: '',
+            unitprice: '',
+            quantity: '',
+            fee: '',
+            catalognumber: '',
+            notes: '',
+            approved: 'No',
+            pickup: 'No',
+        }
     }
+
+    onChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    createOrder = e => {
+        e.preventDefault();
+        const db = firebase.firestore();
+        const userRef =
+        db.collection("orders").add({
+            date: this.state.date,
+            orderer: this.state.orderer,
+            department: this.state.department,
+            system: this.state.system,
+            partname: this.state.partname,
+            retailer: this.state.retailer,
+            link: this.state.link,
+            dimensions: this.state.dimensions,
+            unitprice: this.state.unitprice,
+            quantity: this.state.quantity,
+            fee: this.state.fee,
+            catalognumber: this.state.catalognumber,
+            notes: this.state.notes,
+            approved: 'No',
+            pickup: 'No'
+        })
+        this.setState({
+            date: '',
+            orderer: '',
+            department: '',
+            system: '',
+            partname: '',
+            retailer: '',
+            link: '',
+            dimensions: '',
+            unitprice: '',
+            quantity: '',
+            fee: '',
+            catalognumber: '',
+            notes: '',
+            approved: 'No',
+            pickup: 'No',
+        });
+    };
 
     render() {
         return (
@@ -48,13 +112,39 @@ class CreateLoan extends React.Component {
                                   <h5 className="title">Make An Order</h5>
                                 </CardHeader>
                                 <CardBody>
-                                    <Form action="/home/view">
+                                    <Form onSubmit={this.createOrder} action="/home/view">
                                         <Row>
+                                            <Col className="pr-md-1" md="2">
+                                                <FormGroup>
+                                                    <label>Date</label>
+                                                    <Input
+                                                        name = "date"
+                                                        value={this.state.date}
+                                                        onChange={this.onChange}
+                                                        placeholder=""
+                                                        type="text"
+                                                    />
+                                                </FormGroup>
+                                            </Col>
+                                            <Col className="pr-md-1" md="2">
+                                                <FormGroup>
+                                                    <label>Name</label>
+                                                    <Input
+                                                        name = "orderer"
+                                                        value={this.state.orderer}
+                                                        onChange={this.onChange}
+                                                        placeholder="i.e. Jane Smith"
+                                                        type="text"
+                                                    />
+                                                </FormGroup>
+                                            </Col>
                                             <Col className="pr-md-1" md="2">
                                                 <FormGroup>
                                                     <label>Department*</label>
                                                     <Input
-                                                        defaultValue=""
+                                                        name = "department"
+                                                        value={this.state.department}
+                                                        onChange={this.onChange}
                                                         placeholder="i.e. ME"
                                                         type="text"
                                                     />
@@ -64,7 +154,9 @@ class CreateLoan extends React.Component {
                                                 <FormGroup>
                                                     <label>System Name</label>
                                                     <Input
-                                                        defaultValue=""
+                                                        name = "system"
+                                                        value={this.state.system}
+                                                        onChange={this.onChange}
                                                         placeholder="i.e. Fluids"
                                                         type="text"
                                                     />
@@ -76,7 +168,9 @@ class CreateLoan extends React.Component {
                                                 <FormGroup>
                                                     <label>Part Name*</label>
                                                     <Input
-                                                        defaultValue=""
+                                                        name = "partname"
+                                                        value={this.state.partname}
+                                                        onChange={this.onChange}
                                                         placeholder="i.e. Nylon Tube"
                                                         type="text"
                                                     />
@@ -86,7 +180,9 @@ class CreateLoan extends React.Component {
                                                 <FormGroup>
                                                     <label>Part/Catalog Number</label>
                                                     <Input
-                                                        defaultValue=""
+                                                        name = "catalognumber"
+                                                        value={this.state.catalognumber}
+                                                        onChange={this.onChange}
                                                         placeholder="i.e. 8628K58"
                                                         type="text"
                                                     />
@@ -97,7 +193,9 @@ class CreateLoan extends React.Component {
                                                 <FormGroup>
                                                     <label>Retailer*</label>
                                                     <Input
-                                                        defaultValue=""
+                                                        name = "retailer"
+                                                        value={this.state.retailer}
+                                                        onChange={this.onChange}
                                                         placeholder="i.e. McMaster"
                                                         type="text"
                                                     />
@@ -108,8 +206,10 @@ class CreateLoan extends React.Component {
                                             <Col className="pr-md-1" md="7">
                                                 <FormGroup>
                                                     <label>Link</label>
-                                                    <Input
-                                                        defaultValue=""
+                                                    <Input 
+                                                        name = "link"
+                                                        value={this.state.link}
+                                                        onChange={this.onChange}
                                                         placeholder="i.e. https://www.mcmaster.com/8628k58"
                                                         type="text"
                                                     />
@@ -119,7 +219,9 @@ class CreateLoan extends React.Component {
                                                 <FormGroup>
                                                     <label>Dimensions</label>
                                                     <Input
-                                                        defaultValue=""
+                                                        name = "dimensions"
+                                                        value={this.state.dimensions}
+                                                        onChange={this.onChange}
                                                         placeholder="i.e. 1/2in ID, 3/4in OD"
                                                         type="text"
                                                     />
@@ -131,7 +233,9 @@ class CreateLoan extends React.Component {
                                                 <FormGroup>
                                                     <label>Unit Price</label>
                                                     <Input
-                                                        defaultValue=""
+                                                        name = "unitprice"
+                                                        value={this.state.unitprice}
+                                                        onChange={this.onChange}
                                                         placeholder="i.e. 16.41"
                                                         type="text"
                                                     />
@@ -141,7 +245,9 @@ class CreateLoan extends React.Component {
                                                 <FormGroup>
                                                     <label>Quantity</label>
                                                     <Input
-                                                        defaultValue=""
+                                                        name = "quantity"
+                                                        value={this.state.quantity}
+                                                        onChange={this.onChange}
                                                         placeholder="i.e. 1"
                                                         type="text"
                                                     />
@@ -151,7 +257,9 @@ class CreateLoan extends React.Component {
                                                 <FormGroup>
                                                     <label>Shipping/Processing Fee</label>
                                                     <Input
-                                                        defaultValue=""
+                                                        name = "fee"
+                                                        value={this.state.fee}
+                                                        onChange={this.onChange}
                                                         placeholder=""
                                                         type="text"
                                                     />
@@ -173,22 +281,22 @@ class CreateLoan extends React.Component {
                                                 <FormGroup>
                                                     <label>Additional Notes</label>
                                                     <Input
-                                                        defaultValue=""
+                                                        name = "notes"
+                                                        value={this.state.notes}
+                                                        onChange={this.onChange}
                                                         placeholder="Other Notes"
                                                         type="textarea"
                                                     />
                                                 </FormGroup>
                                             </Col>
                                         </Row>
-
-  
+                                        <CardFooter>
+                                        <Button className="btn-fill" color="primary" type="submit">
+                                            Submit
+                                        </Button>
+                                        </CardFooter>
                                     </Form>
                                 </CardBody>
-                                <CardFooter>
-                                    <Button className="btn-fill" color="primary" type="submit">
-                                        Submit
-                                    </Button>
-                                </CardFooter>
                             </Card>
                         </Col>
                     </Row>
@@ -199,3 +307,4 @@ class CreateLoan extends React.Component {
 }
 
 export default CreateLoan;
+
