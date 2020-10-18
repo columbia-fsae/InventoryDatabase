@@ -31,7 +31,7 @@ import {NavLink} from "react-router-dom";
 
 import firebase from 'firebase';
 
-import { db } from 'C:/Users/sanja/Desktop/InventoryDatabase-master/src/index';
+import { db } from 'index';
 
 class Tables extends React.Component {
 
