@@ -61,3 +61,4 @@
 ```
 # InventoryDatabase
 Inventory database implemented with FireBase
+run npm build before deploying
