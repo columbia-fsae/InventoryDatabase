@@ -31,8 +31,6 @@ import {NavLink} from "react-router-dom";
 
 import firebase from 'firebase';
 
-import { db } from 'index';
-
 class Tables extends React.Component {
 
   constructor(props){
@@ -43,7 +41,8 @@ class Tables extends React.Component {
   }
 
   componentDidMount() {
-    db.collection('orders').get().then(querySnapshot => {
+      const db = firebase.firestore()
+      db.collection('orders').get().then(querySnapshot => {
       const data = querySnapshot.docs.map(doc => doc.data());
       console.log(data);
       this.setState({ transactions: data});
@@ -75,10 +74,10 @@ class Tables extends React.Component {
                         Department
                       </th>
                       <th>
-                        System
+                        Part Name
                       </th>
                       <th>
-                        Part Name
+                        System
                       </th>
                       <th>
                         Catalog #

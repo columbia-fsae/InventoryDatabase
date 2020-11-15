@@ -265,16 +265,6 @@ class CreateLoan extends React.Component {
                                                     />
                                                 </FormGroup>
                                             </Col>
-                                            <Col className="px-md-1" md="3">
-                                                <FormGroup>
-                                                    <label>Urgent?</label>
-                                                    {/* <Input
-                                                        type="checkbox"
-                                                        name = "urgent"
-                                                    /> */}
-                                                    <label> {'\u00A0'}<input type="checkbox" id="services1" name="services[]" placeholder="Building and Pest Inspections" value="Building and Pest Inspections <br>"></input></label>
-                                                </FormGroup>
-                                            </Col>
                                         </Row>
                                         <Row>
                                             <Col className="px-md-1" md="11">
