@@ -36,24 +36,78 @@ class Tables extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      transactions: []
+      transactions: [], 
+      approved: 'any'
     };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  // drop down for filtering data based on Approved/not
+  handleChange(event) {
+    this.setState({approved: event.target.value});
+    console.log(event.target.value);
+    const db = firebase.firestore()
+
+      if (event.target.value == "yes") {
+        db.collection('orders').where("approved", "==", "Yes").get().then(querySnapshot => {
+        const data = querySnapshot.docs.map(doc => doc.data());
+        console.log(data);
+        this.setState({ transactions: data});
+        });
+      } else if (event.target.value== "no") {
+        db.collection('orders').where("approved", "==", "No").get().then(querySnapshot => {
+        const data = querySnapshot.docs.map(doc => doc.data());
+        console.log(data);
+        this.setState({ transactions: data});
+        });
+      } else {
+        db.collection('orders').get().then(querySnapshot => {
+          const data = querySnapshot.docs.map(doc => doc.data());
+          console.log(data);
+          this.setState({ transactions: data});
+          });
+      }
   }
 
   componentDidMount() {
       const db = firebase.firestore()
-      db.collection('orders').get().then(querySnapshot => {
-      const data = querySnapshot.docs.map(doc => doc.data());
-      console.log(data);
-      this.setState({ transactions: data});
-    });
+
+      if (this.state.approved == "yes") {
+        db.collection('orders').where("approved", "==", "Yes").get().then(querySnapshot => {
+        const data = querySnapshot.docs.map(doc => doc.data());
+        console.log(data);
+        this.setState({ transactions: data});
+        });
+      } else if (this.state.approved == "no") {
+        db.collection('orders').where("approved", "==", "No").get().then(querySnapshot => {
+        const data = querySnapshot.docs.map(doc => doc.data());
+        console.log(data);
+        this.setState({ transactions: data});
+        });
+      } else {
+        db.collection('orders').get().then(querySnapshot => {
+          const data = querySnapshot.docs.map(doc => doc.data());
+          console.log(data);
+          this.setState({ transactions: data});
+          });
+      }
   }
 
   render() {
     const { transactions } = this.state;
     return (
-     
         <div className="content">
+          <form>
+            <label>
+            Approved: &nbsp;
+            <select value={this.state.approved} onChange={this.handleChange}>
+              <option value="any">Any</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          </form>
           <Row>
             <Col md="12">
               <Card>
