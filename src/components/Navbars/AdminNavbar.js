@@ -18,6 +18,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import firebase from 'firebase';
 
 // reactstrap components
 import {
@@ -40,14 +41,50 @@ import {
 class AdminNavbar extends React.Component {
   constructor(props) {
     super(props);
+
+    var user = firebase.auth().currentUser;
+    var name, email, photoUrl, uid, emailVerified, isLogIn;
+
     this.state = {
       collapseOpen: false,
       modalSearch: false,
       color: "navbar-transparent"
     };
+
+    if (user) {
+      // User is signed in.
+      this.state = {
+        collapseOpen: false,
+        modalSearch: false,
+        color: "navbar-transparent",
+        isLogIn: true,
+        name: user.displayName,
+        email: user.email,
+        photoUrl: user.photoURL,
+        uid: user.uid,
+       
+      };
+    } else {
+      isLogIn=false;// No user is signed in.
+    }
+    
   }
+  
   componentDidMount() {
     window.addEventListener("resize", this.updateColor);
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+          console.log("User signed in")
+          console.log(user.displayName + '\n' + user.email)
+          this.setState = {
+              isLogIn:true,
+              name:user.displayName,
+              photo:user.photoURL
+          }
+      } else {
+          console.log("No user is signed in")
+      }
+  });
   }
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateColor);
@@ -85,6 +122,34 @@ class AdminNavbar extends React.Component {
       modalSearch: !this.state.modalSearch
     });
   };
+
+  //this function is to log out
+  googleSignOut = () => {
+    
+    firebase.auth().signOut().then(function() {
+        //sign-out successful.
+    }).catch(function(error) {
+        //An error happened.
+    });
+    this.setState({
+        isLogIn:false
+    })
+  }
+  
+  googleSignIn = () => {
+    console.log("this is:", this)
+        var base_provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(base_provider).then(function(result){
+            var token = result.credential.accessToken;
+            var user = result.user;
+            console.log(result)
+            console.log("Success: Google Account Linked")
+        }).catch(function(err){
+            console.log(err)
+            console.log("Failed to link Google Account")
+        })
+  }
+
   render() {
     return (
       <>
@@ -189,10 +254,10 @@ class AdminNavbar extends React.Component {
                     onClick={e => e.preventDefault()}
                   >
                     <div className="photo">
-                      <img alt="..." src={require("assets/img/anime3.png")} />
+                      <img src={this.state.photo} alt="Profile photo." />
                     </div>
                     <b className="caret d-none d-lg-block d-xl-block" />
-                    <p className="d-lg-none">Log out</p>
+                    <p className="d-lg-none">{this.state.name}</p>
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li">
@@ -203,7 +268,8 @@ class AdminNavbar extends React.Component {
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">Log out</DropdownItem>
+                      <DropdownItem className="nav-item" onClick={this.googleSignOut}>Log out</DropdownItem>
+                      <DropdownItem className="nav-item" onClick={this.googleSignIn}>Log In</DropdownItem>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>

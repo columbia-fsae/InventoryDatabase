@@ -33,20 +33,40 @@ import axios from "axios";
 import UserProfile from "../../views/UserProfile";
 import Dashboard from "../../views/Dashboard";
 import LoanProfile from "../../views/LoanProfile";
+import firebase from 'firebase';
 
 var ps;
 
 class Admin extends React.Component {
   constructor(props) {
     super(props);
-
-
     this.state = {
       backgroundColor: "blue",
+      isLogIn: false,
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1,
       
     };
+
+    var user = firebase.auth().currentUser;
+    var name, email, photoUrl, uid, emailVerified, isLogIn;
+
+    if (user) {
+      // User is signed in.
+      this.state = {
+        backgroundColor: "blue",
+        isLogIn: true,
+        name: user.displayName,
+        email: user.email,
+        photoUrl: user.photoURL,
+        uid: user.uid,
+        sidebarOpened:
+          document.documentElement.className.indexOf("nav-open") !== -1,
+        
+      };
+    } else {
+      isLogIn=false;// No user is signed in.
+    }
 
 
   }

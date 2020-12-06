@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.64c89359.chunk.css",
+    "main.js": "/static/js/main.4f301c90.chunk.js",
+    "main.js.map": "/static/js/main.4f301c90.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.a52b60f3.js",
+    "runtime-main.js.map": "/static/js/runtime-main.a52b60f3.js.map",
+    "static/js/2.f5ea42b7.chunk.js": "/static/js/2.f5ea42b7.chunk.js",
+    "static/js/2.f5ea42b7.chunk.js.map": "/static/js/2.f5ea42b7.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.13d2ed189e4cfaf21f79946efdcc00a1.js": "/precache-manifest.13d2ed189e4cfaf21f79946efdcc00a1.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.64c89359.chunk.css.map": "/static/css/main.64c89359.chunk.css.map",
+    "static/js/2.f5ea42b7.chunk.js.LICENSE.txt": "/static/js/2.f5ea42b7.chunk.js.LICENSE.txt",
+    "static/js/main.4f301c90.chunk.js.LICENSE.txt": "/static/js/main.4f301c90.chunk.js.LICENSE.txt",
+    "static/media/SAECrownWhite.png": "/static/media/SAECrownWhite.9665d917.png",
+    "static/media/anime3.png": "/static/media/anime3.bd6820f1.png",
+    "static/media/nucleo-icons.css": "/static/media/nucleo.f0b489a5.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a52b60f3.js",
+    "static/js/2.f5ea42b7.chunk.js",
+    "static/css/main.64c89359.chunk.css",
+    "static/js/main.4f301c90.chunk.js"
+  ]
+}
