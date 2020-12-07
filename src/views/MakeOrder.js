@@ -26,9 +26,11 @@ import {
     CardHeader,
     CardBody,
     CardFooter,
+    Checkbox,
     FormGroup,
     Form,
     Input,
+    Label,
     Row,
     Col
 } from "reactstrap";
@@ -79,6 +81,7 @@ class CreateLoan extends React.Component {
             fee: this.state.fee,
             catalognumber: this.state.catalognumber,
             notes: this.state.notes,
+            urgent: 0,
             approved: 'No',
             pickup: 'No'
         })
@@ -96,6 +99,7 @@ class CreateLoan extends React.Component {
             fee: '',
             catalognumber: '',
             notes: '',
+            urgent: 0,
             approved: 'No',
             pickup: 'No',
         });
@@ -264,6 +268,18 @@ class CreateLoan extends React.Component {
                                                         type="text"
                                                     />
                                                 </FormGroup>
+                                            </Col>
+                                            <Col className="pr-md-1" md="3">
+                                                <FormGroup>
+                                                    <label>Urgent &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                    <Input
+                                                        name = "urgent"
+                                                        value={this.state.urgent}
+                                                        onChange={this.onChange}
+                                                        placeholder=""
+                                                        type="checkbox"
+                                                    />
+                                                </FormGroup> 
                                             </Col>
                                         </Row>
                                         <Row>
