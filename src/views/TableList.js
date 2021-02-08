@@ -27,7 +27,7 @@ import {
   Col
 } from "reactstrap";
 
-import {NavLink} from "react-router-dom";
+import {NavLink, Link} from "react-router-dom";
 
 import firebase from 'firebase';
 
@@ -131,10 +131,16 @@ class Tables extends React.Component {
                         Part Name
                       </th>
                       <th>
+                        Link
+                      </th>
+                      <th>
+                        Quantity
+                      </th>
+                      <th>
                         System
                       </th>
                       <th>
-                        Catalog #
+                        Total
                       </th>
                       <th>
                         Approved
@@ -142,20 +148,24 @@ class Tables extends React.Component {
                       <th>
                         Picked Up
                       </th>
+                     
                     </tr>
                     </thead>
                     <tbody>
                     {
                       transactions.map(order => (
-                        <tr key={order.uid}>
+                        <tr key={order.uid}> 
                           <td>{order.date}</td>
                           <td>{order.orderer}</td>
                           <td>{order.department}</td>
                           <td>{order.partname}</td>
+                          <td><Link to={{ pathname: order.link }} target="_blank">{order.retailer}</Link></td>
+                          <td>{order.quantity}</td>
                           <td>{order.system}</td>
-                          <td>{order.catalognumber}</td>
+                          <td>{order.unitprice.replace('$', '')*order.quantity}</td>
                           <td>{order.approved}</td>
                           <td>{order.pickup}</td>
+                        
                         </tr>
                        )
                       )

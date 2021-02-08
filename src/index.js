@@ -51,13 +51,14 @@ firebase.initializeApp(config);
 const db = firebase.firestore();
 
 ReactDOM.render(
-  <Router history={hist}>
-    <Switch>
-      <Route path="/admin" render={props => <AdminLayout {...props} />} />
-      <Redirect from="/" to="/admin/makeorder" />
+  
+    <Router history={hist}>
+      <Switch>
+        <Route path="/admin" render={props => <AdminLayout {...props} />} />
+        <Redirect from="/" to="/admin/makeorder" />
 
-    </Switch>
-  </Router>,
+      </Switch>
+    </Router>,
   document.getElementById("root")
 );
 

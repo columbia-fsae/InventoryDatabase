@@ -19,7 +19,6 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 import firebase from 'firebase';
-
 // reactstrap components
 import {
   Button,
@@ -41,35 +40,15 @@ import {
 class AdminNavbar extends React.Component {
   constructor(props) {
     super(props);
-
     var user = firebase.auth().currentUser;
-    var name, email, photoUrl, uid, emailVerified, isLogIn;
-
     this.state = {
       collapseOpen: false,
       modalSearch: false,
       color: "navbar-transparent"
     };
 
-    if (user) {
-      // User is signed in.
-      this.state = {
-        collapseOpen: false,
-        modalSearch: false,
-        color: "navbar-transparent",
-        isLogIn: true,
-        name: user.displayName,
-        email: user.email,
-        photoUrl: user.photoURL,
-        uid: user.uid,
-       
-      };
-    } else {
-      isLogIn=false;// No user is signed in.
-    }
-    
   }
-  
+
   componentDidMount() {
     window.addEventListener("resize", this.updateColor);
     firebase.auth().onAuthStateChanged(function(user) {
@@ -78,12 +57,14 @@ class AdminNavbar extends React.Component {
           console.log(user.displayName + '\n' + user.email)
           this.setState = {
               isLogIn:true,
-              name:user.displayName,
-              photo:user.photoURL
+              photo: user.photoURL,
+              userName: user.displayName
           }
+          console.log(this.state.photo)
       } else {
           console.log("No user is signed in")
       }
+      
   });
   }
   componentWillUnmount() {
@@ -140,10 +121,9 @@ class AdminNavbar extends React.Component {
     console.log("this is:", this)
         var base_provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(base_provider).then(function(result){
-            var token = result.credential.accessToken;
-            var user = result.user;
             console.log(result)
             console.log("Success: Google Account Linked")
+            
         }).catch(function(err){
             console.log(err)
             console.log("Failed to link Google Account")
@@ -254,10 +234,10 @@ class AdminNavbar extends React.Component {
                     onClick={e => e.preventDefault()}
                   >
                     <div className="photo">
-                      <img src={this.state.photo} alt="Profile photo." />
+                      <img src="this.state.user.photoURL" alt="Profile photo." />
                     </div>
                     <b className="caret d-none d-lg-block d-xl-block" />
-                    <p className="d-lg-none">{this.state.name}</p>
+                    <p className="d-lg-none">Anonymous User</p>
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li">

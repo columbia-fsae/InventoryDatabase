@@ -50,7 +50,7 @@ class Login extends React.Component {
             //An error happened.
         });
         this.setState({
-            isLogIn:false
+            isLogIn: false
         })
     }
 
@@ -62,47 +62,37 @@ class Login extends React.Component {
             var user = result.user;
             console.log(result)
             console.log("Success: Google Account Linked")
+            console.log(user.displayName + '\n' + user.email)
+            this.setState = {
+                isLogIn: true,
+                name:user.displayName,
+                photo:user.photoURL
+            }
+            console.log(user.photoURL)
         }).catch(function(err){
             console.log(err)
             console.log("Failed to link Google Account")
+            console.log("No user is signed in")
         })
     }
 
-    componentDidMount = () => {
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                console.log("User signed in")
-                console.log(user.displayName + '\n' + user.email)
-                this.setState = {
-                    isLogIn:true,
-                    name:user.displayName,
-                    photo:user.photoURL
-                }
-            } else {
-                console.log("No user is signed in")
-            }
-        });
-    }
+     componentDidMount = () => {
+         let text;
+          firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {
+                 console.log("User is signed in!")
+              } else {
+                  console.log("No user is signed in!")
+              }
+          });
+      }
 
-    render() {
+    render(text) {
         return (
             <div className="content">
-                {this.state.isLogIn === false ?
-                    <Button onClick={this.googleSignIn}>Google Sign In</Button>                   
-                    :
-                    <>
-                        {this.state.isLogIn === true ?
-                        <Button onClick={this.googleSignOut}>Google Sign Out</Button>
-                        :
-                        <>
-                        </>    
-                    }
-                    </>
-                }
-                
+                <Button onClick={this.googleSignIn}>Google Sign In</Button>
+                <Button onClick={this.googleSignOut}>Google Sign Out</Button>
             </div>
-               
-        
             
         );
     }

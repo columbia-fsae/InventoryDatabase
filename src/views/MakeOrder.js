@@ -54,6 +54,7 @@ class CreateLoan extends React.Component {
             notes: '',
             approved: 'No',
             pickup: 'No',
+            urgen: 0
         }
     }
 
@@ -81,7 +82,6 @@ class CreateLoan extends React.Component {
             fee: this.state.fee,
             catalognumber: this.state.catalognumber,
             notes: this.state.notes,
-            urgent: 0,
             approved: 'No',
             pickup: 'No'
         })
@@ -283,7 +283,7 @@ class CreateLoan extends React.Component {
                                             </Col>
                                         </Row>
                                         <Row>
-                                            <Col className="px-md-1" md="11">
+                                            <Col className="pr-md-1" md="11">
                                                 <FormGroup>
                                                     <label>Additional Notes</label>
                                                     <Input
