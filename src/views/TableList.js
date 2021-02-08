@@ -137,13 +137,10 @@ class Tables extends React.Component {
                         Quantity
                       </th>
                       <th>
-                        System
-                      </th>
-                      <th>
                         Total
                       </th>
                       <th>
-                        Approved
+                        Status
                       </th>
                       <th>
                         Picked Up
@@ -161,9 +158,8 @@ class Tables extends React.Component {
                           <td>{order.partname}</td>
                           <td><Link to={{ pathname: order.link }} target="_blank">{order.retailer}</Link></td>
                           <td>{order.quantity}</td>
-                          <td>{order.system}</td>
-                          <td>{order.unitprice.replace('$', '')*order.quantity}</td>
-                          <td>{order.approved}</td>
+                          <td>{Math.round(order.unitprice.replace('$', '')*order.quantity)}</td>
+                          <td>{order.status}</td>
                           <td>{order.pickup}</td>
                         
                         </tr>
